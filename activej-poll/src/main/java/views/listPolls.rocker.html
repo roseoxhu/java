@@ -1,0 +1,92 @@
+@import java.util.Map
+@import java.util.Set
+@import org.example.pojo.Poll
+
+@args (Set<Map.Entry<Integer, Poll>> polls)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poll-tutorial</title>
+
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 300px;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+  </style>
+</head>
+<body>
+<H3><a href="create/">Create new</a></H3>
+
+<div style="margin: 10px">
+  <div style="float: left; margin: 10px;">
+    @for (item : polls) {
+    <form method="post" action="/vote">
+      <input name="id" value="@item.getKey()" hidden>
+      <table>
+        <tr>
+          <th colspan="2" style="text-align: center">
+            <h3><a href="/poll/@item.getKey()">Title: @?item.getValue().getTitle()</a></h3>
+          </th>
+        </tr>
+        <tr>
+          <th colspan="2" style="text-align: center">Question: @?item.getValue().getMessage()</th>
+        </tr>
+        <tr>
+          <th>
+            <center>
+              <select name="option">
+                @for (option : item.getValue().getOptions()) {
+                <option value="@option.getKey()">@option.getKey()</option>
+                }
+              </select>
+            </center>
+          </th>
+          <th style="text-align: center"></th>
+        </tr>
+        @for (option : item.getValue().getOptions()) {
+        <tr>
+          <th style="text-align: center">Option: @option.getKey()</th>
+          <th style="text-align: center">Votes: @option.getValue()</th>
+        </tr>
+        }
+        <tr>
+          <th style="text-align: center"></th>
+          <th style="text-align: center">
+            <button>Vote</button>
+          </th>
+        </tr>
+      </table>
+    </form>
+
+    <form method="post" action="/delete">
+      <input name="id" value="{{key}}" hidden>
+      <button>Delete</button>
+    </form>
+    <br>
+    }
+
+    <div>
+      @if (polls.size() == 0) {
+      <h2>Empty list</h2>
+      }
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

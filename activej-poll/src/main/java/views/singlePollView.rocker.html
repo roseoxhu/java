@@ -1,0 +1,77 @@
+@import org.example.pojo.Poll
+
+@args (Integer id, Poll poll)
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Poll-tutorial</title>
+
+  <style>
+    table {
+      font-family: arial, sans-serif;
+      border-collapse: collapse;
+      width: 300px;
+    }
+
+    td, th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #dddddd;
+    }
+
+  </style>
+</head>
+<body>
+<H3><a href="/">Index list</a></H3>
+
+@if (poll != null) {
+<form method="post" action="/vote">
+  <input name="id" value="@id" hidden>
+  <table>
+    <tr>
+      <th colspan="2" style="text-align: center"><h3>Title: @poll.getTitle()</h3></th>
+    </tr>
+    <tr>
+      <th colspan="2" style="text-align: center">Question: @poll.getMessage()</th>
+    </tr>
+    <tr>
+      <th>
+        <center>
+          <select name="option">
+            @for (option : poll.getOptions()) {
+            <option value="@option.getKey()">@option.getKey()</option>
+            }
+          </select>
+        </center>
+      </th>
+      <th style="text-align: center"></th>
+    </tr>
+    @for (option : poll.getOptions()) {
+    <tr>
+      <th style="text-align: center">Option: @option.getKey()</th>
+      <th style="text-align: center">Votes: @option.getValue()</th>
+    </tr>
+    }
+    <tr>
+      <th style="text-align: center"></th>
+      <th style="text-align: center">
+        <button>Vote</button>
+      </th>
+    </tr>
+  </table>
+</form>
+
+<form method="post" action="/delete">
+  <input name="id" value="@id" hidden>
+  <button>Delete</button>
+</form>
+}
+
+</body>
+</html>

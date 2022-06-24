@@ -1,3 +1,4 @@
-# Java frameworks and components integration examples
+## Java frameworks and components integration examples
 
-activej-poll: activej + rocker template
+- activej-poll: activej + rocker template
+- activej-poll-redis: activej(promise) + rocker template + redis

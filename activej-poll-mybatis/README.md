@@ -11,7 +11,7 @@
 
 ## Performance for pool version
 
-- pool + non-promise + <transactionManager type="JDBC">
+- pool + non-promise + \<transactionManager type="JDBC"\>
 
 ```bash
 λ bombardier-windows-amd64.exe -l -c100 -d20s http://localhost:8080/now
@@ -32,7 +32,7 @@ Statistics        Avg      Stdev        Max
   Throughput:   268.31KB/s
 ```
 
-- pool + non-promise + <transactionManager type="MANAGED">
+- pool + non-promise + \<transactionManager type="MANAGED"\>
 
 ```bash
 λ bombardier-windows-amd64.exe -l -c100 -d20s http://localhost:8080/now
@@ -53,7 +53,7 @@ Statistics        Avg      Stdev        Max
   Throughput:   610.01KB/s
 ```
 
-- pool + promise + <transactionManager type="JDBC">
+- pool + promise + \<transactionManager type="JDBC"\>
 
 ```bash
 λ bombardier-windows-amd64.exe -l -c100 -d20s http://localhost:8080/asyncNow
@@ -74,7 +74,7 @@ Statistics        Avg      Stdev        Max
   Throughput:   504.61KB/s
 ```
 
-- pool + promise + <transactionManager type="MANAGED">
+- pool + promise + \<transactionManager type="MANAGED"\>
 
 ```bash
 λ bombardier-windows-amd64.exe -l -c100 -d20s http://localhost:8080/asyncNow

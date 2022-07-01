@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.example.dao.PollDao">
+  <select id="findVote" resultType="PollVote">
+    SELECT `option`,votes_count FROM poll_vote WHERE poll_id=#{pollId}
+  </select>
+
+  <select id="find" resultType="Poll">
+    SELECT id,title,message FROM poll WHERE id=#{id}
+  </select>
+
+  <!-- SELECT * FROM poll
+  No constructor found in org.example.pojo.Poll matching
+    [java.lang.Integer, java.lang.String, java.lang.String, java.sql.Timestamp] -->
+  <select id="findAll" resultType="Poll">
+    SELECT id,title,message FROM poll
+  </select>
+
+  <insert id="add" useGeneratedKeys="true" keyProperty="id">
+    INSERT INTO poll(title, message) VALUES(#{title}, #{message})
+    <!-- <selectKey keyProperty="id" resultType="java.lang.Integer" order="AFTER">
+        SELECT LAST_INSERT_ID() AS id
+    </selectKey> -->
+  </insert>
+  <insert id="addVote">
+    INSERT INTO poll_vote(poll_id, `option`) VALUES(#{pollId}, #{option})
+  </insert>
+
+  <update id="update">
+    UPDATE poll SET title=#{title}, message=#{message} WHERE id=#{id}
+  </update>
+  <update id="updateVote">
+    UPDATE poll_vote SET votes_count=#{votesCount} WHERE poll_id=#{pollId} and `option`=#{option}
+  </update>
+
+  <delete id="remove">
+    DELETE FROM poll WHERE id=#{id}
+  </delete>
+  <delete id="removeVote">
+    DELETE FROM poll_vote WHERE poll_id=#{id}
+  </delete>
+</mapper>

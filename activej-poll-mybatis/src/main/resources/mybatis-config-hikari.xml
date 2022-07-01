@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+  <properties resource="mysql-pooled.properties" />
+  <settings>
+    <!-- https://mybatis.org/mybatis-3/zh/sqlmap-xml.html#select
+            自动映射: 开启SQL字段下划线映射Java属性驼峰命名格式 -->
+    <setting name="mapUnderscoreToCamelCase" value="true"/>
+  </settings>
+  <typeAliases>
+    <package name="org.example.pojo"/>
+  </typeAliases>
+
+  <environments default="development">
+    <environment id="development">
+      <!-- <transactionManager type="JDBC">
+        <property name="skipSetAutoCommitOnClose" value="true"/>
+      </transactionManager> -->
+      <transactionManager type="MANAGED">
+        <property name="closeConnection" value="true"/>
+      </transactionManager>
+      <!-- <dataSource type="POOLED"> -->
+      <dataSource type="org.example.util.HikariCPDataSourceFactory">
+       <!--  <property name="driver" value="${hikari.driverClassName}"/>
+        <property name="url" value="${hikari.jdbcUrl}"/>
+        <property name="username" value="${hikari.username}"/>
+        <property name="password" value="${hikari.password}"/> -->
+      </dataSource>
+    </environment>
+  </environments>
+
+  <mappers>
+    <mapper resource="mapper/BaseDao.xml"/>
+    <mapper resource="mapper/PollDao.xml"/>
+  </mappers>
+</configuration>
